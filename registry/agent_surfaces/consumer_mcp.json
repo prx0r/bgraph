@@ -1,0 +1,60 @@
+{
+  "schema_version": "agent_surface.v1",
+  "surface": "consumer_mcp",
+  "description": "ChatGPT/Muse/Grok-facing MCP for brand storefronts: photo → mesh → products → quote → Shopify checkout",
+  "mcp_url_dev": "stdio: oddhobbies/db/consumer_mcp.py",
+  "mcp_url_prod": "https://mcp.oddhobb.com/mcp",
+  "default_store_id": "oddhobb",
+  "store_ids": ["oddhobb", "grimoirer", "stonedoorway"],
+  "commerce": "physical_goods",
+  "tools": [
+    {
+      "name": "search_products",
+      "title": "Search products",
+      "description": "List products for a store (gift/custom figurines, hobby gifts, etc). Use when the user wants to browse what they can order. Returns name, sku, summary, price tier — not internal costs.",
+      "annotations": {"readOnlyHint": true, "openWorldHint": false, "destructiveHint": false}
+    },
+    {
+      "name": "get_product",
+      "title": "Get product details",
+      "description": "Full public details for one product: summary, personalisation questions, fulfilment blurb, public image URL. Use before quoting or ordering.",
+      "annotations": {"readOnlyHint": true, "openWorldHint": false, "destructiveHint": false}
+    },
+    {
+      "name": "upload_photo",
+      "title": "Upload person or pet photo",
+      "description": "Upload a photo of a person or pet to start a custom figurine pipeline. Returns photo_id for status checks. Does not spend credits or order yet.",
+      "annotations": {"readOnlyHint": false, "openWorldHint": false, "destructiveHint": false}
+    },
+    {
+      "name": "get_photo_status",
+      "title": "Photo and mesh status",
+      "description": "Machine-readable view of an uploaded photo and any mesh/preview job. Use to show the customer what was detected and whether the mesh is ready.",
+      "annotations": {"readOnlyHint": true, "openWorldHint": false, "destructiveHint": false}
+    },
+    {
+      "name": "get_quote",
+      "title": "Get price and fulfilment quote",
+      "description": "Price tier and fulfilment estimate for a product with optional personalisation. Use after the customer chooses a product — always show price before checkout.",
+      "annotations": {"readOnlyHint": true, "openWorldHint": false, "destructiveHint": false}
+    },
+    {
+      "name": "start_checkout",
+      "title": "Start Shopify checkout",
+      "description": "Reserve an order and return an external checkout URL on our store (Shopify). Physical goods only. Does not charge the card in-chat.",
+      "annotations": {"readOnlyHint": false, "openWorldHint": true, "destructiveHint": false}
+    },
+    {
+      "name": "get_order_status",
+      "title": "Get order status",
+      "description": "Look up status by order_ref returned from start_checkout.",
+      "annotations": {"readOnlyHint": true, "openWorldHint": false, "destructiveHint": false}
+    }
+  ],
+  "never_expose": ["unit_cost", "supplier_api_key", "vault_path", "ops_db_sql"],
+  "brands": {
+    "oddhobb": {"domain": "oddhobb.com", "voice": "warm gift / brick figures", "store_pack": "oddhobbies/stores/oddhobb"},
+    "grimoirer": {"domain": "grimoirer.com", "voice": "scholarly occult craft", "store_pack": "oddhobbies/stores/grimoirer"},
+    "stonedoorway": {"domain": "stonedoorway.com", "voice": "TODO thesis", "store_pack": "oddhobbies/stores/stonedoorway"}
+  }
+}

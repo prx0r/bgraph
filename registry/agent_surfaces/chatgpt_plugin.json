@@ -1,0 +1,44 @@
+{
+  "schema_version": "agent_surface.v1",
+  "surface": "chatgpt_plugin",
+  "status": "draft",
+  "app": {
+    "name": "OddHobb Store",
+    "subtitle": "Custom figurines & hobby gifts",
+    "description": "Browse OddHobb / Grimoirer products, upload a photo of a person or pet, get a quote, and check out on our store.",
+    "category": "SHOPPING",
+    "commerce": "physical_goods",
+    "has_ui": false
+  },
+  "mcp": {
+    "url": "https://mcp.oddhobb.com/mcp",
+    "url_type": "universal",
+    "auth": "none_for_browse; optional customer api_key later",
+    "domain_verify_host": "oddhobb.com",
+    "well_known": "/.well-known/openai-apps-challenge"
+  },
+  "tools_ref": "registry/agent_surfaces/consumer_mcp.json",
+  "starter_prompts": [
+    "Show me OddHobb products for a dog figurine gift",
+    "I want a custom brick figure from this photo — what do you have?",
+    "Quote a memory album for a wedding gift"
+  ],
+  "test_cases": {
+    "positive": [
+      "List products for OddHobb",
+      "Get details for a tile rack gift",
+      "Quote the memory album",
+      "Start checkout for ornament with photo"
+    ],
+    "negative": [
+      "How do I make a brick figure at home?",
+      "What is your supplier's cost for PLA?",
+      "Cancel my last order" 
+    ]
+  },
+  "references": [
+    "https://developers.openai.com/plugins/plugin-guidelines",
+    "https://developers.openai.com/plugins/build/mcp-server",
+    "agentcom-plugin-canonical templates"
+  ]
+}

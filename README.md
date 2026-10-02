@@ -45,6 +45,7 @@ Site hosts, commerce stores, social branches, content methods, R2 layouts — sa
 | [docs/architecture/ARCHITECTURE.md](docs/architecture/ARCHITECTURE.md) | Graph model, nodes, edges |
 | [docs/architecture/R2-CONTENT.md](docs/architecture/R2-CONTENT.md) | R2 folder + sidecar contract |
 | [docs/architecture/PUBLISH-METHODS.md](docs/architecture/PUBLISH-METHODS.md) | Method contracts |
+| [docs/architecture/AGENT-SURFACE.md](docs/architecture/AGENT-SURFACE.md) | Consumer MCP for ChatGPT/Muse |
 | [docs/integrations/INTEGRATIONS.md](docs/integrations/INTEGRATIONS.md) | oddhobbies · pogpet · Shopify · Etsy · company graph |
 | [docs/operations/BRAND-ADD.md](docs/operations/BRAND-ADD.md) | Add a brand end-to-end |
 | [docs/operations/DAILY-LOOP.md](docs/operations/DAILY-LOOP.md) | Validate, export, status |
