@@ -1,0 +1,22 @@
+{
+  "id": "actuate-20261002T083335-oddhobb-content_tree_ok",
+  "ts": 1790930015.1528702,
+  "decision_id": "content_tree_ok",
+  "store_id": "oddhobb",
+  "primitive": "noul",
+  "question": "Does this store have a defined content/R2 layout contract?",
+  "model": "stub-local-v1",
+  "thresholds": {
+    "auto": 0.85,
+    "confirm": 0.5
+  },
+  "fail_direction": "human",
+  "inputs": {
+    "has_bgraph_branches": true,
+    "r2_prefix_set": true
+  },
+  "answer": true,
+  "confidence": 0.88,
+  "band": "auto",
+  "action": "content_engine_can_target_store"
+}

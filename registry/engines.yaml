@@ -1,0 +1,39 @@
+# Engines — named execution surfaces behind bgraph methods
+# Contracts only. Implementations live in their repos.
+# P0: registry. P2: method.engines field points here.
+
+engines:
+  catalog:
+    name: oddhobbies catalog
+    repo: /root/oddhobbies
+    role: product truth, packs, orders schema
+    used_by: [package.from_listing, store_agent_catalog]
+  site:
+    name: pogpet site engine
+    repo: /root/pogpet
+    role: photo→mesh→print, multi-brand hosts
+    used_by: [mesh pipeline, site checkout UX]
+  consumer_mcp:
+    name: consumer MCP door
+    repo: /root/oddhobbies/db/consumer_mcp.py
+    role: ChatGPT/Muse/Grok full chain
+    used_by: [search_products, upload_photo, start_checkout]
+  content:
+    name: R2 content layout
+    repo: /root/bgraph + R2 content/stores/
+    role: longform/short/vertical structure
+    used_by: [ingest, organise]  # stub until upload tooling
+  publish:
+    name: human / Postiz later
+    repo: null
+    role: execute posting_methods
+    used_by: [publish.human_confirm]
+  measure:
+    name: analytics pull later
+    repo: null
+    role: YT/IG metrics → analytics/
+    used_by: [measure.analytics_pull]
+
+notes:
+  - Do not fork engines. bgraph methods reference these names.
+  - Money engines stay fail-closed + human until QP receipts exist.

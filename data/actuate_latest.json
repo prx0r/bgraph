@@ -1,0 +1,70 @@
+{
+  "mode": "dry-run",
+  "receipts": 12,
+  "human_actions": [
+    {
+      "decision_id": "shopify_push_ok",
+      "store_id": "grimoirer",
+      "primitive": "noul",
+      "question": "Should we push listing drafts to Shopify for this store?",
+      "model": "stub-local-v1",
+      "thresholds": {
+        "auto": 0.9,
+        "confirm": 0.7
+      },
+      "fail_direction": "fail_closed_human",
+      "inputs": {
+        "brand_ready": true,
+        "pack_count": 4,
+        "currency_policy": "store"
+      },
+      "answer": true,
+      "confidence": 0.85,
+      "band": "human",
+      "action": "HOLD_human_confirm"
+    },
+    {
+      "decision_id": "shopify_push_ok",
+      "store_id": "oddhobb",
+      "primitive": "noul",
+      "question": "Should we push listing drafts to Shopify for this store?",
+      "model": "stub-local-v1",
+      "thresholds": {
+        "auto": 0.9,
+        "confirm": 0.7
+      },
+      "fail_direction": "fail_closed_human",
+      "inputs": {
+        "brand_ready": true,
+        "pack_count": 15,
+        "currency_policy": "store"
+      },
+      "answer": true,
+      "confidence": 0.85,
+      "band": "human",
+      "action": "HOLD_human_confirm"
+    },
+    {
+      "decision_id": "shopify_push_ok",
+      "store_id": "stonedoorway",
+      "primitive": "noul",
+      "question": "Should we push listing drafts to Shopify for this store?",
+      "model": "stub-local-v1",
+      "thresholds": {
+        "auto": 0.9,
+        "confirm": 0.7
+      },
+      "fail_direction": "fail_closed_human",
+      "inputs": {
+        "brand_ready": true,
+        "pack_count": 1,
+        "currency_policy": "store"
+      },
+      "answer": true,
+      "confidence": 0.85,
+      "band": "human",
+      "action": "HOLD_human_confirm"
+    }
+  ],
+  "model": "stub-local-v1"
+}

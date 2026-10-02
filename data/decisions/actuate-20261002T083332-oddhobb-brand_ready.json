@@ -1,0 +1,24 @@
+{
+  "id": "actuate-20261002T083332-oddhobb-brand_ready",
+  "ts": 1790930012.8764644,
+  "decision_id": "brand_ready",
+  "store_id": "oddhobb",
+  "primitive": "noul",
+  "question": "Is this store ready for catalog push consideration?",
+  "model": "stub-local-v1",
+  "thresholds": {
+    "auto": 0.8,
+    "confirm": 0.5
+  },
+  "fail_direction": "human",
+  "inputs": {
+    "pack_count": 15,
+    "has_store_json": true,
+    "has_domain": true,
+    "commerce_link_ok": true
+  },
+  "answer": true,
+  "confidence": 0.9,
+  "band": "auto",
+  "action": "allow_shopify_push_consideration"
+}

@@ -1,0 +1,28 @@
+{
+  "id": "actuate-20261002T083332-stonedoorway-next_photo_sku",
+  "ts": 1790930012.8774822,
+  "decision_id": "next_photo_sku",
+  "store_id": "stonedoorway",
+  "primitive": "choice",
+  "question": "Which SKU should get images next for this store?",
+  "model": "stub-local-v1",
+  "thresholds": {
+    "auto": 0.8,
+    "confirm": 0.5
+  },
+  "fail_direction": "score_order",
+  "inputs": {
+    "pack_count": 1,
+    "picked": "top_priority_pack",
+    "confidence": 0.9
+  },
+  "picked": "top_priority_pack",
+  "options": [
+    "top_priority_pack",
+    "best_margin_hint",
+    "featured_section"
+  ],
+  "confidence": 0.9,
+  "band": "auto",
+  "action": "recommend:top_priority_pack"
+}

@@ -9,11 +9,25 @@
 |----------|------|----------|
 | **THE-STACK** | [docs/THE-STACK.md](docs/THE-STACK.md) | How bgraph ↔ oddhobbies ↔ pogpet ↔ influence ↔ QP |
 | **DISTINCTION** | [docs/DISTINCTION.md](docs/DISTINCTION.md) | What lives in which repo |
+| **COORDINATION** | [docs/COORDINATION.md](docs/COORDINATION.md) | **pi + Jev + human loop (P0 prototype)** |
 | **Influence OS map** | `/root/influence/products/OS.md` | Factories → plane → doors |
 | **Influence resources** | `/root/influence/resources.md` | Agent law, connectors, Jev, monid |
 | **Influence guide** | `/root/influence/docs/GUIDE.md` | Daily ops (desk, domain buy) |
 | **QP law** | `/root/qprivately` | Grants/gates/receipts |
 | **Commerce map** | `/root/oddhobbies/docs/commerce/SITE-LINK.md` | Product truth + site |
+| **sleepintel Jev** | `/root/sleepintel/scripts/jev.py` + `jev/decisions.json` | Band/receipt pattern we ported |
+| **funnylabs pi-extension** | `/root/funnylabs/pi-extension` | Later: pi harness + separate Jev key |
+
+## Where these slot into the P0 prototype
+
+| Resource | Slots in as |
+|----------|-------------|
+| sleepintel score→Jev→actuate | **Built:** `scripts/score.py`, `actuate.py`, `jev/` |
+| engines.yaml | Registry for mesh/catalog/content/publish/measure |
+| registry/content/README.md | `/content` structure stub |
+| Postiz / YT analytics / nerranetwork | Later engines behind methods (publish/measure/content) |
+| monid connectors | Later paid providers (phone/registrar) |
+| influence QP | Later fail-closed actuators + receipts on money |
 
 ## Local first
 

@@ -1,0 +1,43 @@
+{
+  "scores": [
+    {
+      "store_id": "grimoirer",
+      "status": "active",
+      "score": 1.0,
+      "pack_count": 4,
+      "has_store_json": true,
+      "has_domain": true,
+      "domain": "grimoirer.com",
+      "commerce_link_ok": true,
+      "enabled_branches": 5,
+      "r2_prefix_set": true,
+      "has_bgraph_branches": true
+    },
+    {
+      "store_id": "oddhobb",
+      "status": "active",
+      "score": 1.0,
+      "pack_count": 15,
+      "has_store_json": true,
+      "has_domain": true,
+      "domain": "oddhobb.com",
+      "commerce_link_ok": true,
+      "enabled_branches": 5,
+      "r2_prefix_set": true,
+      "has_bgraph_branches": true
+    },
+    {
+      "store_id": "stonedoorway",
+      "status": "scaffold",
+      "score": 0.8,
+      "pack_count": 1,
+      "has_store_json": true,
+      "has_domain": true,
+      "domain": "stonedoorway.com",
+      "commerce_link_ok": true,
+      "enabled_branches": 0,
+      "r2_prefix_set": true,
+      "has_bgraph_branches": true
+    }
+  ]
+}
