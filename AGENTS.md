@@ -24,11 +24,13 @@ Controller only — **never** render content, **never** auto-publish.
 ## Read in this order
 
 1. `README.md`
-2. `docs/architecture/ARCHITECTURE.md`
-3. `docs/integrations/INTEGRATIONS.md`
-4. `docs/operations/BRAND-ADD.md`
-5. `registry/brands/*.json`
-6. `TODO.md` / `RESOURCES.md`
+2. **`docs/THE-STACK.md`** — how all repos fit
+3. **`docs/DISTINCTION.md`** — bgraph vs oddhobbies vs pogpet vs influence
+4. `docs/architecture/ARCHITECTURE.md`
+5. `docs/integrations/INTEGRATIONS.md`
+6. `docs/operations/BRAND-ADD.md`
+7. `registry/brands/*.json`
+8. `TODO.md` / `RESOURCES.md`
 
 ---
 

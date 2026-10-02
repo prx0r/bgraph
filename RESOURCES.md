@@ -1,7 +1,19 @@
 # Resources — patterns worth stealing
 
-> Sources are references, not runtimes. Port patterns, not whole stacks.
-> Local sleep controller: `/root/sleepintel` (already cloned — prx0r/sleepintel).
+> Sources are references, not runtimes. Port patterns, not whole stacks.  
+> **This repo (bgraph) is the brand spine.** Ops/OS map lives in influence.
+
+## How this fits other playbooks
+
+| Playbook | Path | Use when |
+|----------|------|----------|
+| **THE-STACK** | [docs/THE-STACK.md](docs/THE-STACK.md) | How bgraph ↔ oddhobbies ↔ pogpet ↔ influence ↔ QP |
+| **DISTINCTION** | [docs/DISTINCTION.md](docs/DISTINCTION.md) | What lives in which repo |
+| **Influence OS map** | `/root/influence/products/OS.md` | Factories → plane → doors |
+| **Influence resources** | `/root/influence/resources.md` | Agent law, connectors, Jev, monid |
+| **Influence guide** | `/root/influence/docs/GUIDE.md` | Daily ops (desk, domain buy) |
+| **QP law** | `/root/qprivately` | Grants/gates/receipts |
+| **Commerce map** | `/root/oddhobbies/docs/commerce/SITE-LINK.md` | Product truth + site |
 
 ## Local first
 
@@ -9,9 +21,10 @@
 |------|------|--------------------|
 | `/root/sleepintel` | Brand/channel controller: registry YAML, templates, pipeline, Jev gates | **Primary pattern** — organiser not creator; channels.yaml shape; method contracts |
 | `/root/oddhobbies` | Commerce core: stores, packs, R2 commerce assets, graph export | Product truth + store_id alignment |
+| `/root/pogpet` | Live site + multi-brand Host map | Site hosts + `store_id` in BRANDS |
 | `/root/agentcom` | CompanyGraph entities/edges | Brand identity edges, credential_ref names |
 | `/root/qprivately` + cmail `qp/` | Grants, gates, receipts | Later: publish/spend gates |
-| `/root/influence` | Passports, Postiz connectors, human tasks | Later: publish executors |
+| `/root/influence` | Passports, Postiz connectors, human tasks | Later: publish executors + ops plane |
 | `/root/stevejobless` | Desired-vs-observed human queue | Later: claim/OAuth tasks |
 
 ## Social publishing (workspaces, MCP)
