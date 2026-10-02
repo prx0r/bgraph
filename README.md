@@ -1,31 +1,57 @@
-# bgraph — brand identity graph
+# bgraph — brand identity spine
 
-**Objective organiser for multi-brand social/content structure.**  
-Create the graph once. Every new store instantiates it.
+**One objective graph. Every brand instantiates it.**  
+Site hosts, commerce stores, social branches, content methods, R2 layouts — same shape, different `store_id`.
 
-| Layer | Lives in |
-|-------|----------|
-| Products, listings, assets, orders | `oddhobbies` commerce core |
-| Brand identity + branches + content methods | **bgraph** |
-| R2 media files | `powpowpow-warehouse/.../content/stores/<store_id>/` |
-| Publish executors | later: Postiz / OpenPost / influence |
-| YouTube analytics pulls | later: youtube-analytics-cli / MCP |
+| This repo owns | This repo does **not** own |
+|----------------|----------------------------|
+| Identity + branches + content methods | Product costs / SKUs (oddhobbies) |
+| store_id contract across systems | Mesh / print pipeline (pogpet) |
+| Graph exports for agents | Publish execution (Postiz later) |
+| Brand drop-in templates | Etsy/Shopify API calls |
 
-## What this is
+---
 
-- Identity graph per brand (OddHobb, Grimoirer, StoneDoorway, …)
-- Social **branches** (youtube, instagram, tiktok, pinterest, x)
-- **Content types** (longform, short, vertical, post, ad) with R2 layouts
-- **Methods** (ingest → organise → package → publish → measure)
-- **Exports** as graph JSON for agents / company-graph alignment
-- **Templates** so a new brand is one instantiate call
+## The spine (how systems connect)
 
-## What this is not
+```
+                    ┌─────────────────┐
+                    │     bgraph      │  identity + branches + methods
+                    │  (this repo)    │
+                    └────────┬────────┘
+                             │ store_id
+        ┌────────────────────┼────────────────────┐
+        ▼                    ▼                    ▼
+  oddhobbies            pogpet site           R2 media
+  commerce.db           oddhobb.com           content/stores/<id>/
+  packs + orders        grimoirer.com         commerce/stores/<id>/
+  graph export           stonedoorway.com
+        │                    │
+        └──────────┬─────────┘
+                   ▼
+         Shopify · Etsy · ads · analytics
+```
 
-- Not a video editor
-- Not a scheduler (Postiz/OpenPost later)
-- Not product truth (oddhobbies owns SKUs/costs)
-- Not sleepintel’s 244-channel sleep network (that repo stays separate)
+**Hard key:** `store_id` ∈ { `oddhobb`, `grimoirer`, `stonedoorway`, … }
+
+---
+
+## Docs map
+
+| Doc | Read when |
+|-----|-----------|
+| [AGENTS.md](AGENTS.md) | Every session — laws + daily loop |
+| [README.md](README.md) | What bgraph is |
+| [docs/architecture/ARCHITECTURE.md](docs/architecture/ARCHITECTURE.md) | Graph model, nodes, edges |
+| [docs/architecture/R2-CONTENT.md](docs/architecture/R2-CONTENT.md) | R2 folder + sidecar contract |
+| [docs/architecture/PUBLISH-METHODS.md](docs/architecture/PUBLISH-METHODS.md) | Method contracts |
+| [docs/integrations/INTEGRATIONS.md](docs/integrations/INTEGRATIONS.md) | oddhobbies · pogpet · Shopify · Etsy · company graph |
+| [docs/operations/BRAND-ADD.md](docs/operations/BRAND-ADD.md) | Add a brand end-to-end |
+| [docs/operations/DAILY-LOOP.md](docs/operations/DAILY-LOOP.md) | Validate, export, status |
+| [RESOURCES.md](RESOURCES.md) | External patterns |
+| [TODO.md](TODO.md) | Work queue |
+
+---
 
 ## Quick start
 
@@ -33,52 +59,46 @@ Create the graph once. Every new store instantiates it.
 cd /root/bgraph
 python3 scripts/validate.py
 python3 scripts/export_graph.py
+python3 scripts/brand_status.py
 python3 -m pytest tests/ -q
 
-# new brand from template
+# add a brand
 python3 scripts/instantiate_brand.py \
-  --template brand.template.json \
   --store-id mybrand \
   --name "MyBrand" \
-  --domain mybrand.com
+  --domain mybrand.com \
+  --email hello@mybrand.com
 ```
 
-## Brands seeded
+---
 
-| store_id | Status |
-|----------|--------|
-| oddhobb | pilot — all main branches |
-| grimoirer | scholarly subset |
-| stonedoorway | empty scaffold until thesis |
+## Current brands
 
-## Docs
+| store_id | Domain | Site | Commerce | Status |
+|----------|--------|------|----------|--------|
+| **oddhobb** | oddhobb.com | pogpet multi-brand | oddhobbies/stores/oddhobb | active |
+| **grimoirer** | grimoirer.com | pogpet multi-brand | oddhobbies/stores/grimoirer | active |
+| **stonedoorway** | stonedoorway.com | pogpet multi-brand | oddhobbies/stores/stonedoorway | scaffold |
 
-| Doc | Purpose |
-|-----|---------|
-| `docs/SYSTEM.md` | Map of the map |
-| `docs/ORGANISER.md` | Graph model + R2 layout + methods |
-| `docs/NEW-BRAND.md` | Instantiation checklist |
-| `RESOURCES.md` | External repos to steal patterns from |
-| `TODO.md` | 10 autonomous work items |
+---
 
 ## Layout
 
 ```
 bgraph/
-  AGENTS.md
-  README.md
-  RESOURCES.md
-  TODO.md
+  AGENTS.md  README.md  RESOURCES.md  TODO.md
   docs/
-  schemas/           # brand-organiser.v1, content_type.v1, method.v1
+    architecture/   ARCHITECTURE · R2-CONTENT · PUBLISH-METHODS
+    integrations/   INTEGRATIONS · SITE · COMMERCE · ADS-ANALYTICS
+    operations/     BRAND-ADD · DAILY-LOOP
+  schemas/          brand-organiser.v1 · content_type.v1 · method.v1
   registry/
-    brands/          # per-store organiser.json instances
-    channels/        # platform capability + method contracts
-    content_types/   # longform/short/vertical/post/ad
-    methods/         # ingest/organise/package/publish/measure
-  templates/         # new-brand starter
-  scripts/           # validate, export, instantiate
+    brands/         <store_id>.json   ← one file per brand
+    channels/       platforms.yaml
+    content_types/  content_types.yaml
+    methods/        methods.yaml
+  templates/        brand.template.json
+  scripts/          validate · export_graph · instantiate · brand_status
   tests/
-  exports/           # generated graph JSON (gitignored runtime or committed snapshots)
-  data/              # optional local working copies
+  exports/          <store_id>.json graph snapshots
 ```

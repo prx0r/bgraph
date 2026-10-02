@@ -6,38 +6,86 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+SCRIPTS = ROOT / "scripts"
 
 
-def run_validate() -> None:
-    r = subprocess.run([sys.executable, str(ROOT / "scripts" / "validate.py")], capture_output=True, text=True)
+def run(script: str, *args: str) -> subprocess.CompletedProcess:
+    return subprocess.run(
+        [sys.executable, str(SCRIPTS / script), *args],
+        capture_output=True,
+        text=True,
+    )
+
+
+def test_validate_green() -> None:
+    r = run("validate.py")
     assert r.returncode == 0, r.stdout + r.stderr
     assert "OK:" in r.stdout
 
 
-def run_export() -> None:
-    r = subprocess.run([sys.executable, str(ROOT / "scripts" / "export_graph.py")], capture_output=True, text=True)
+def test_export_all() -> None:
+    r = run("export_graph.py")
     assert r.returncode == 0, r.stdout + r.stderr
-    exports = list((ROOT / "exports").glob("*.json"))
-    assert len(exports) >= 3, exports
-
-
-def test_validate_and_export() -> None:
-    run_validate()
-    run_export()
     for sid in ("oddhobb", "grimoirer", "stonedoorway"):
         path = ROOT / "exports" / f"{sid}.json"
         assert path.exists(), path
         data = json.loads(path.read_text())
         assert data["store_id"] == sid
         assert data["counts"]["nodes"] > 0
+        # every branch node present for enabled brands
+        if data["store_id"] == "oddhobb":
+            ids = {n["id"] for n in data["nodes"]}
+            assert "oddhobb/youtube" in ids
+            assert "identity:oddhobb" in ids
 
 
-def test_oddhobb_branches_enabled() -> None:
+def test_brand_status_runs() -> None:
+    r = run("brand_status.py")
+    assert r.returncode == 0, r.stdout + r.stderr
+    assert "oddhobb" in r.stdout and "grimoirer" in r.stdout
+
+
+def test_r2_layout_runs() -> None:
+    r = run("r2_layout.py", "--store", "oddhobb")
+    assert r.returncode == 0, r.stdout + r.stderr
+    assert "content/stores/oddhobb" in r.stdout
+
+
+def test_instantiate_creates_valid_brand() -> None:
+    sid = "zztestbrand"
+    path = ROOT / "registry" / "brands" / f"{sid}.json"
+    if path.exists():
+        path.unlink()
+    r = run(
+        "instantiate_brand.py",
+        "--store-id", sid,
+        "--name", "ZZ Test",
+        "--domain", "zztestbrand.com",
+        "--email", "hello@zztestbrand.com",
+        "--handle", "@zztestbrand",
+    )
+    assert r.returncode == 0, r.stdout + r.stderr
+    assert path.exists()
+    data = json.loads(path.read_text())
+    assert data["store_id"] == sid
+    assert data["identity"]["domain"] == "zztestbrand.com"
+    # validate still passes with extra brand
+    r2 = run("validate.py")
+    assert r2.returncode == 0, r2.stdout + r2.stderr
+    # cleanup
+    path.unlink()
+    exp = ROOT / "exports" / f"{sid}.json"
+    if exp.exists():
+        exp.unlink()
+    r3 = run("validate.py")
+    assert r3.returncode == 0
+
+
+def test_oddhobb_site_block() -> None:
     data = json.loads((ROOT / "registry" / "brands" / "oddhobb.json").read_text())
-    enabled = [b["branch_id"] for b in data["branches"] if b.get("enabled")]
-    assert "youtube" in enabled and "instagram" in enabled
-    assert data["identity"]["domain"] == "oddhobb.com"
-    assert data["identity"]["email"] == "hello@oddhobb.com"
+    site = data.get("site") or {}
+    assert site.get("primary_host") == "oddhobb.com"
+    assert data["commerce_link"]["pack_path"] == "oddhobbies/stores/oddhobb"
 
 
 def test_grimoirer_handle() -> None:
@@ -57,5 +105,26 @@ def test_publish_gates_human() -> None:
         data = json.loads(path.read_text())
         for b in data["branches"]:
             for m in b.get("posting_methods") or []:
-                if str(m.get("method_id", "")).startswith(("yt.", "ig.", "tt.", "pin.", "x.")):
-                    assert m["gate"] == "human_confirm", (path.name, m)
+                mid = str(m.get("method_id", ""))
+                if mid.startswith(("yt.", "ig.", "tt.", "pin.", "x.")):
+                    assert m["gate"] == "human_confirm", (path.name, mid)
+
+
+def test_docs_exist() -> None:
+    for rel in [
+        "AGENTS.md",
+        "README.md",
+        "RESOURCES.md",
+        "TODO.md",
+        "docs/architecture/ARCHITECTURE.md",
+        "docs/architecture/R2-CONTENT.md",
+        "docs/architecture/PUBLISH-METHODS.md",
+        "docs/integrations/INTEGRATIONS.md",
+        "docs/integrations/SITE.md",
+        "docs/integrations/COMMERCE.md",
+        "docs/operations/BRAND-ADD.md",
+        "docs/operations/DAILY-LOOP.md",
+        "templates/brand.template.json",
+        "schemas/brand-organiser.v1.schema.json",
+    ]:
+        assert (ROOT / rel).exists(), rel

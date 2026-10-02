@@ -1,32 +1,33 @@
 # TODO — autonomous work queue
 
-Ten items. Work top-down. **Validate before marking done.**  
-Organiser only — no content creation, no auto-publish.
+Work top-down. **Validate + tests before done.** Organiser only.
 
 ```bash
 cd /root/bgraph
 python3 scripts/validate.py
 python3 scripts/export_graph.py
+python3 scripts/brand_status.py
 python3 -m pytest tests/ -q
 ```
 
-| # | Task | Done when | Status |
-|---|------|-----------|--------|
-| 1 | Scaffold repo + AGENTS/README/SYSTEM/ORGANISER | files exist; validate passes | [x] |
-| 2 | Schemas brand-organiser.v1 + content_type.v1 + method.v1 | schemas present | [x] |
-| 3 | Registry: platforms.yaml, content_types.yaml, methods.yaml | validate OK | [x] |
-| 4 | Template `templates/brand.template.json` | instantiable | [x] |
-| 5 | Seed brands oddhobb, grimoirer, stonedoorway | `registry/brands/*.json` | [x] |
-| 6 | `scripts/validate.py` green | exit 0 | [x] |
-| 7 | `scripts/export_graph.py` → `exports/*.json` | 3 graphs | [x] |
-| 8 | `scripts/instantiate_brand.py` + tests | pytest green | [x] |
-| 9 | RESOURCES.md + this TODO | committed in repo | [x] |
-| 10 | Align oddhobbies docs pointers to bgraph | AGENTS/BRAND-STACK link `/root/bgraph` | [x] |
+| # | Task | Status |
+|---|------|--------|
+| 1 | Scaffold repo + AGENTS/README/ARCHITECTURE spine | [x] |
+| 2 | Schemas brand-organiser.v1 + content_type.v1 + method.v1 | [x] |
+| 3 | Registry channels + content_types + methods | [x] |
+| 4 | Template + instantiate_brand.py | [x] |
+| 5 | Seed brands oddhobb / grimoirer / stonedoorway | [x] |
+| 6 | validate.py + export_graph.py + brand_status.py + r2_layout.py | [x] |
+| 7 | Full docs: integrations + operations + R2 + publish methods | [x] |
+| 8 | Tests (validate, export, status, instantiate, gates, docs) | [x] |
+| 9 | RESOURCES.md + spine pointers in oddhobbies + pogpet | [x] |
+| 10 | Commit bgraph as beautiful objective structure | [x] |
 
-## Next after queue (not in the 10)
+## After the 10
 
-- Content sidecar schema + R2 `content/stores/` upload script (in oddhobbies or bgraph/scripts)
-- `content_items` table in commerce.db
-- Postiz/OpenPost workspace per store_id
-- youtube-analytics-cli OAuth + analytics pull into R2
-- Company-graph nodes for three brands
+- Content sidecar schema + R2 upload script  
+- `content_items` in oddhobbies commerce.db  
+- Postiz/OpenPost workspace per store_id  
+- YouTube analytics OAuth + pull into R2  
+- Company-graph nodes for three brands  
+- Shopify feed ↔ commerce SKU unify  
