@@ -45,6 +45,28 @@
       "action": "HOLD_human_confirm"
     },
     {
+      "decision_id": "brand_ready",
+      "store_id": "stonedoorway",
+      "primitive": "noul",
+      "question": "Is this store ready for catalog push consideration?",
+      "model": "stub-local-v1",
+      "thresholds": {
+        "auto": 0.8,
+        "confirm": 0.5
+      },
+      "fail_direction": "human",
+      "inputs": {
+        "pack_count": 0,
+        "has_store_json": true,
+        "has_domain": true,
+        "commerce_link_ok": true
+      },
+      "answer": false,
+      "confidence": 0.4,
+      "band": "human",
+      "action": "hold_until_ready"
+    },
+    {
       "decision_id": "shopify_push_ok",
       "store_id": "stonedoorway",
       "primitive": "noul",
@@ -56,12 +78,12 @@
       },
       "fail_direction": "fail_closed_human",
       "inputs": {
-        "brand_ready": true,
-        "pack_count": 1,
+        "brand_ready": false,
+        "pack_count": 0,
         "currency_policy": "store"
       },
-      "answer": true,
-      "confidence": 0.85,
+      "answer": false,
+      "confidence": 0.35,
       "band": "human",
       "action": "HOLD_human_confirm"
     }

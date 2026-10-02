@@ -16,7 +16,13 @@ ODDHOBBIES = Path("/root/oddhobbies/stores")
 def score_store(data: dict) -> dict:
     sid = data["store_id"]
     packs_dir = ODDHOBBIES / sid / "listings"
-    packs = len(list(packs_dir.glob("*.json"))) if packs_dir.exists() else 0
+    packs = 0
+    if packs_dir.exists():
+        packs = sum(
+            1
+            for p in packs_dir.glob("*.json")
+            if not p.name.startswith("_") and p.name != "TEMPLATE-SKU.json"
+        )
     packs_ready = 1.0 if packs >= 1 else 0.0
     has_store_json = (ODDHOBBIES / sid / "store.json").exists()
     domain = (data.get("identity") or {}).get("domain")

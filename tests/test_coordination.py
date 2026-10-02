@@ -23,9 +23,12 @@ def test_score_runs() -> None:
     assert "oddhobb" in r.stdout
     scores = json.loads((ROOT / "data" / "scores.json").read_text())
     assert len(scores["scores"]) >= 3
-    # oddhobb has packs → should rank high
-    top = scores["scores"][0]["store_id"]
-    assert top == "oddhobb"
+    by_id = {s["store_id"]: s for s in scores["scores"]}
+    assert by_id["oddhobb"]["pack_count"] >= 15
+    assert by_id["oddhobb"]["score"] >= 0.9
+    assert by_id["grimoirer"]["pack_count"] >= 4
+    # stonedoorway scaffold: fewer enabled branches / no real packs
+    assert by_id["stonedoorway"]["score"] <= by_id["oddhobb"]["score"]
 
 
 def test_actuate_dry_run_writes_receipts() -> None:

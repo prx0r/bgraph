@@ -29,8 +29,8 @@
     {
       "store_id": "stonedoorway",
       "status": "scaffold",
-      "score": 0.8,
-      "pack_count": 1,
+      "score": 0.4,
+      "pack_count": 0,
       "has_store_json": true,
       "has_domain": true,
       "domain": "stonedoorway.com",

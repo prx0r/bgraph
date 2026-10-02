@@ -6,3 +6,7 @@ __pycache__/
 .venv/
 .env
 *.db
+
+# local decision receipts (regenerate via actuate.py)
+data/decisions/
+data/actuate_latest.json
