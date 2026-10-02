@@ -339,5 +339,16 @@
   },
   "created_at": "2026-10-02",
   "updated_at": "2026-10-02",
-  "notes": "Pilot brand. Commerce packs live in oddhobbies. Social handles locked pending human signup."
+  "notes": "Pilot brand. Commerce packs live in oddhobbies. Social handles locked pending human signup.",
+  "site": {
+    "repo": "prx0r/pogpet",
+    "local_path": "/root/pogpet",
+    "primary_host": "oddhobb.com",
+    "alias_hosts": [
+      "pog.pet"
+    ],
+    "app": "same Flask+bridge multi-brand seam",
+    "brand_for_key": "oddhobb.com",
+    "updated": "2026-10-02"
+  }
 }

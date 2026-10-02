@@ -326,5 +326,14 @@
   },
   "created_at": "2026-10-02",
   "updated_at": "2026-10-02",
-  "notes": "Domain+email live. No products/content until thesis. Branches scaffolded but disabled."
+  "notes": "Domain+email live. No products/content until thesis. Branches scaffolded but disabled.",
+  "site": {
+    "repo": "prx0r/pogpet",
+    "local_path": "/root/pogpet",
+    "primary_host": "stonedoorway.com",
+    "alias_hosts": [],
+    "app": "same Flask+bridge multi-brand seam",
+    "brand_for_key": "stonedoorway.com",
+    "updated": "2026-10-02"
+  }
 }
