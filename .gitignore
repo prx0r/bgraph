@@ -1,0 +1,8 @@
+exports/*.json
+data/graph/*.json
+__pycache__/
+.pytest_cache/
+*.pyc
+.venv/
+.env
+*.db

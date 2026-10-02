@@ -1,0 +1,55 @@
+longform:
+  content_type_id: longform
+  name: YouTube longform
+  description: Long-form educational / brand storytelling for a store channel.
+  ratios: ["16:9"]
+  min_sec: 180
+  max_sec: null
+  r2_folders: [raw, edit, masters, thumbnails, scripts, metadata]
+  links_to_products: true
+  default_methods: [ingest.local_or_r2, organise.folder, package.from_listing, publish.human_confirm, measure.analytics_pull]
+  platforms_default: [youtube]
+
+short:
+  content_type_id: short
+  name: YouTube Short
+  description: Vertical short cut for Shorts feed.
+  ratios: ["9:16"]
+  min_sec: null
+  max_sec: 60
+  r2_folders: [raw, cuts, masters, covers, metadata]
+  links_to_products: true
+  default_methods: [ingest.local_or_r2, organise.folder, package.from_listing, publish.human_confirm]
+  platforms_default: [youtube]
+
+vertical:
+  content_type_id: vertical
+  name: TikTok / Reels
+  description: Vertical video for TikTok and Instagram Reels.
+  ratios: ["9:16"]
+  min_sec: null
+  max_sec: 90
+  r2_folders: [raw, masters, covers, metadata]
+  links_to_products: true
+  default_methods: [ingest.local_or_r2, organise.folder, publish.human_confirm]
+  platforms_default: [tiktok, instagram]
+
+post:
+  content_type_id: post
+  name: Social still
+  description: Image posts, carousels, Pinterest pins.
+  ratios: ["1:1", "4:5", "2:3"]
+  r2_folders: [raw, masters, covers, metadata]
+  links_to_products: true
+  default_methods: [ingest.local_or_r2, organise.folder, package.from_listing, publish.human_confirm]
+  platforms_default: [instagram, pinterest, x]
+
+ad:
+  content_type_id: ad
+  name: Paid creative
+  description: Ad creatives reusing product assets and content masters.
+  ratios: ["1:1", "9:16", "16:9"]
+  r2_folders: [raw, masters, metadata]
+  links_to_products: true
+  default_methods: [ingest.local_or_r2, organise.folder, publish.human_confirm]
+  platforms_default: []

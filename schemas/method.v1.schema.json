@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "bgraph/method.v1",
+  "title": "Method",
+  "type": "object",
+  "required": ["method_id", "stage", "gate"],
+  "properties": {
+    "method_id": {"type": "string"},
+    "stage": {"type": "string", "enum": ["ingest", "organise", "package", "publish", "measure", "optimise"]},
+    "description": {"type": "string"},
+    "gate": {"type": "string", "enum": ["none", "human_confirm", "qp_grant"]},
+    "inputs": {"type": "array", "items": {"type": "string"}},
+    "outputs": {"type": "array", "items": {"type": "string"}},
+    "executor": {"type": ["string", "null"]},
+    "params_schema": {"type": ["object", "null"]}
+  }
+}

@@ -1,0 +1,343 @@
+{
+  "schema_version": "brand-organiser.v1",
+  "store_id": "oddhobb",
+  "brand_id": "oddhobb",
+  "status": "active",
+  "identity": {
+    "display_name": "OddHobb",
+    "handle_primary": "@oddhobbstudio",
+    "domain": "oddhobb.com",
+    "email": "hello@oddhobb.com",
+    "phone": "+447822000802",
+    "voice": "Warm gift / brick figures / whole-store gift energy.",
+    "style_lock": {
+      "background": "TODO",
+      "lighting": "TODO",
+      "avoid": []
+    }
+  },
+  "commerce_link": {
+    "r2_commerce_prefix": "commerce/stores/oddhobb",
+    "pack_path": "oddhobbies/stores/oddhobb",
+    "graph_export": "oddhobbies/graph/oddhobb.json",
+    "product_library_ref": "r2://powpowpow-warehouse/powpowpow/content/stores/oddhobb/product-library/links.json"
+  },
+  "branches": [
+    {
+      "branch_id": "youtube",
+      "platform": "youtube",
+      "enabled": true,
+      "account": {
+        "handle": "@oddhobbstudio",
+        "status": "claimed_pending_signup",
+        "auth_ref": null
+      },
+      "content_types": [
+        "longform",
+        "short"
+      ],
+      "posting_methods": [
+        {
+          "method_id": "yt.upload.unlisted_then_public",
+          "kind": "youtube_upload",
+          "params": {
+            "privacy": "unlisted",
+            "human_flip_public": true
+          },
+          "gate": "human_confirm"
+        }
+      ],
+      "r2_layout": {
+        "root": "content/stores/oddhobb/youtube",
+        "folders": [
+          "longform/raw",
+          "longform/edit",
+          "longform/masters",
+          "longform/thumbnails",
+          "longform/metadata",
+          "short/raw",
+          "short/cuts",
+          "short/masters",
+          "short/covers",
+          "short/metadata"
+        ]
+      },
+      "analytics": {
+        "pull_tool": "youtube-analytics-cli",
+        "metrics": [
+          "views",
+          "avg_view_duration",
+          "subscribers_gained"
+        ],
+        "r2_sink": "content/stores/oddhobb/analytics/youtube/"
+      }
+    },
+    {
+      "branch_id": "instagram",
+      "platform": "instagram",
+      "enabled": true,
+      "account": {
+        "handle": "@oddhobbstudio",
+        "status": "phone_check",
+        "auth_ref": null
+      },
+      "content_types": [
+        "vertical",
+        "post"
+      ],
+      "posting_methods": [
+        {
+          "method_id": "ig.publish.human",
+          "kind": "instagram_publish",
+          "params": {},
+          "gate": "human_confirm"
+        }
+      ],
+      "r2_layout": {
+        "root": "content/stores/oddhobb/instagram",
+        "folders": [
+          "vertical/masters",
+          "vertical/covers",
+          "post/pinterest",
+          "post/instagram",
+          "metadata"
+        ]
+      },
+      "analytics": {
+        "pull_tool": null,
+        "metrics": [],
+        "r2_sink": "content/stores/oddhobb/analytics/instagram/"
+      }
+    },
+    {
+      "branch_id": "tiktok",
+      "platform": "tiktok",
+      "enabled": true,
+      "account": {
+        "handle": "@oddhobbstudio",
+        "status": "unclaimed",
+        "auth_ref": null
+      },
+      "content_types": [
+        "vertical"
+      ],
+      "posting_methods": [
+        {
+          "method_id": "tt.publish.human",
+          "kind": "tiktok_publish",
+          "params": {},
+          "gate": "human_confirm"
+        }
+      ],
+      "r2_layout": {
+        "root": "content/stores/oddhobb/tiktok",
+        "folders": [
+          "vertical/masters",
+          "vertical/covers",
+          "metadata"
+        ]
+      },
+      "analytics": {
+        "pull_tool": null,
+        "metrics": [],
+        "r2_sink": "content/stores/oddhobb/analytics/tiktok/"
+      }
+    },
+    {
+      "branch_id": "pinterest",
+      "platform": "pinterest",
+      "enabled": true,
+      "account": {
+        "handle": "@oddhobbstudio",
+        "status": "unclaimed",
+        "auth_ref": null
+      },
+      "content_types": [
+        "post",
+        "vertical"
+      ],
+      "posting_methods": [
+        {
+          "method_id": "pin.publish.human",
+          "kind": "pinterest_publish",
+          "params": {},
+          "gate": "human_confirm"
+        }
+      ],
+      "r2_layout": {
+        "root": "content/stores/oddhobb/pinterest",
+        "folders": [
+          "post/pinterest",
+          "vertical/masters",
+          "metadata"
+        ]
+      },
+      "analytics": {
+        "pull_tool": null,
+        "metrics": [],
+        "r2_sink": "content/stores/oddhobb/analytics/pinterest/"
+      }
+    },
+    {
+      "branch_id": "x",
+      "platform": "x",
+      "enabled": true,
+      "account": {
+        "handle": "@oddhobbstudio",
+        "status": "claimed_pending_signup",
+        "auth_ref": null
+      },
+      "content_types": [
+        "post"
+      ],
+      "posting_methods": [
+        {
+          "method_id": "x.publish.human",
+          "kind": "x_publish",
+          "params": {},
+          "gate": "human_confirm"
+        }
+      ],
+      "r2_layout": {
+        "root": "content/stores/oddhobb/x",
+        "folders": [
+          "post/x",
+          "metadata"
+        ]
+      },
+      "analytics": {
+        "pull_tool": null,
+        "metrics": [],
+        "r2_sink": "content/stores/oddhobb/analytics/x/"
+      }
+    }
+  ],
+  "content_type_registry": {
+    "longform": {
+      "content_type_id": "longform",
+      "name": "YouTube longform",
+      "ratios": [
+        "16:9"
+      ],
+      "min_sec": 180,
+      "max_sec": null,
+      "r2_folders": [
+        "raw",
+        "edit",
+        "masters",
+        "thumbnails",
+        "scripts",
+        "metadata"
+      ],
+      "links_to_products": true,
+      "default_methods": [
+        "ingest.local_or_r2",
+        "organise.folder",
+        "package.from_listing",
+        "publish.human_confirm",
+        "measure.analytics_pull"
+      ]
+    },
+    "short": {
+      "content_type_id": "short",
+      "name": "YouTube Short",
+      "ratios": [
+        "9:16"
+      ],
+      "min_sec": null,
+      "max_sec": 60,
+      "r2_folders": [
+        "raw",
+        "cuts",
+        "masters",
+        "covers",
+        "metadata"
+      ],
+      "links_to_products": true,
+      "default_methods": [
+        "ingest.local_or_r2",
+        "organise.folder",
+        "package.from_listing",
+        "publish.human_confirm"
+      ]
+    },
+    "vertical": {
+      "content_type_id": "vertical",
+      "name": "TikTok / Reels vertical",
+      "ratios": [
+        "9:16"
+      ],
+      "min_sec": null,
+      "max_sec": 90,
+      "r2_folders": [
+        "raw",
+        "masters",
+        "covers",
+        "metadata"
+      ],
+      "links_to_products": true,
+      "default_methods": [
+        "ingest.local_or_r2",
+        "organise.folder",
+        "publish.human_confirm"
+      ]
+    },
+    "post": {
+      "content_type_id": "post",
+      "name": "Social still / carousel",
+      "ratios": [
+        "1:1",
+        "4:5",
+        "2:3"
+      ],
+      "min_sec": null,
+      "max_sec": null,
+      "r2_folders": [
+        "raw",
+        "masters",
+        "covers",
+        "metadata"
+      ],
+      "links_to_products": true,
+      "default_methods": [
+        "ingest.local_or_r2",
+        "organise.folder",
+        "package.from_listing",
+        "publish.human_confirm"
+      ]
+    },
+    "ad": {
+      "content_type_id": "ad",
+      "name": "Paid creative",
+      "ratios": [
+        "1:1",
+        "9:16",
+        "16:9"
+      ],
+      "min_sec": null,
+      "max_sec": 60,
+      "r2_folders": [
+        "raw",
+        "masters",
+        "metadata"
+      ],
+      "links_to_products": true,
+      "default_methods": [
+        "ingest.local_or_r2",
+        "organise.folder",
+        "publish.human_confirm"
+      ]
+    }
+  },
+  "pipeline_methods": {
+    "ingest": "drop file under branch content_type/raw/ or call scripts/ingest.py",
+    "organise": "move to typed folder + write metadata sidecar",
+    "package": "title/desc/tags from oddhobbies listing pack + style_lock",
+    "publish": "branch posting_methods + human_confirm gate",
+    "measure": "pull analytics JSON into analytics/<branch>/",
+    "optimise": "later: retention x product_links x commerce orders"
+  },
+  "created_at": "2026-10-02",
+  "updated_at": "2026-10-02",
+  "notes": "Pilot brand. Commerce packs live in oddhobbies. Social handles locked pending human signup."
+}

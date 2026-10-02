@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "bgraph/content_type.v1",
+  "title": "ContentType",
+  "type": "object",
+  "required": ["content_type_id", "name", "ratios", "r2_folders"],
+  "properties": {
+    "content_type_id": {"type": "string"},
+    "name": {"type": "string"},
+    "description": {"type": "string"},
+    "ratios": {"type": "array", "items": {"type": "string"}},
+    "min_sec": {"type": ["number", "null"]},
+    "max_sec": {"type": ["number", "null"]},
+    "r2_folders": {"type": "array", "items": {"type": "string"}},
+    "links_to_products": {"type": "boolean"},
+    "default_methods": {"type": "array", "items": {"type": "string"}},
+    "platforms_default": {"type": "array", "items": {"type": "string"}}
+  }
+}

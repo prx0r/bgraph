@@ -1,0 +1,96 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "bgraph/brand-organiser.v1",
+  "title": "Brand Organiser",
+  "type": "object",
+  "required": ["schema_version", "store_id", "brand_id", "identity", "branches"],
+  "properties": {
+    "schema_version": {"const": "brand-organiser.v1"},
+    "store_id": {"type": "string", "minLength": 1},
+    "brand_id": {"type": "string", "minLength": 1},
+    "status": {"type": "string", "enum": ["scaffold", "active", "paused", "retired"]},
+    "identity": {
+      "type": "object",
+      "required": ["display_name"],
+      "properties": {
+        "display_name": {"type": "string"},
+        "handle_primary": {"type": ["string", "null"]},
+        "domain": {"type": ["string", "null"]},
+        "email": {"type": ["string", "null"]},
+        "phone": {"type": ["string", "null"]},
+        "voice": {"type": ["string", "null"]},
+        "style_lock": {"type": ["object", "null"]}
+      }
+    },
+    "commerce_link": {
+      "type": "object",
+      "properties": {
+        "r2_commerce_prefix": {"type": "string"},
+        "pack_path": {"type": "string"},
+        "graph_export": {"type": "string"},
+        "product_library_ref": {"type": "string"}
+      }
+    },
+    "branches": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/branch"}
+    },
+    "content_type_registry": {"type": "object"},
+    "pipeline_methods": {"type": "object"},
+    "created_at": {"type": "string"},
+    "updated_at": {"type": "string"},
+    "notes": {"type": ["string", "null"]}
+  },
+  "$defs": {
+    "branch": {
+      "type": "object",
+      "required": ["branch_id", "platform"],
+      "properties": {
+        "branch_id": {"type": "string"},
+        "platform": {"type": "string"},
+        "enabled": {"type": "boolean", "default": true},
+        "account": {
+          "type": "object",
+          "properties": {
+            "handle": {"type": ["string", "null"]},
+            "status": {"type": "string", "enum": ["unclaimed", "claimed", "connected", "blocked"]},
+            "auth_ref": {"type": ["string", "null"]}
+          }
+        },
+        "content_types": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "posting_methods": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/posting_method"}
+        },
+        "r2_layout": {
+          "type": "object",
+          "properties": {
+            "root": {"type": "string"},
+            "folders": {"type": "array", "items": {"type": "string"}}
+          }
+        },
+        "analytics": {
+          "type": "object",
+          "properties": {
+            "pull_tool": {"type": ["string", "null"]},
+            "metrics": {"type": "array", "items": {"type": "string"}},
+            "r2_sink": {"type": ["string", "null"]}
+          }
+        }
+      }
+    },
+    "posting_method": {
+      "type": "object",
+      "required": ["method_id", "gate"],
+      "properties": {
+        "method_id": {"type": "string"},
+        "kind": {"type": "string"},
+        "params": {"type": "object"},
+        "gate": {"type": "string", "enum": ["none", "human_confirm", "qp_grant"]}
+      }
+    }
+  }
+}

@@ -1,0 +1,62 @@
+channels:
+  youtube:
+    platform: youtube
+    handle_rules: "3-30 chars, letters/numbers/.-_"
+    max_handle_len: 30
+    content_types_default: [longform, short]
+    posting_methods:
+      - method_id: yt.upload.unlisted_then_public
+        kind: youtube_upload
+        gate: human_confirm
+        params:
+          privacy: unlisted
+          human_flip_public: true
+    analytics_tool: youtube-analytics-cli
+    metrics_default: [views, avg_view_duration, average_view_percentage, subscribers_gained]
+    notes: "Upload unlisted; human flips public. Never auto-public."
+
+  instagram:
+    platform: instagram
+    handle_rules: "1-30 chars, letters/numbers/periods/underscore; no leading/trailing period"
+    max_handle_len: 30
+    content_types_default: [vertical, post]
+    posting_methods:
+      - method_id: ig.publish.human
+        kind: instagram_publish
+        gate: human_confirm
+    analytics_tool: null
+    notes: "Server-side availability unknown; browser check before claim."
+
+  tiktok:
+    platform: tiktok
+    handle_rules: "letters/numbers/._ ; max 24"
+    max_handle_len: 24
+    content_types_default: [vertical]
+    posting_methods:
+      - method_id: tt.publish.human
+        kind: tiktok_publish
+        gate: human_confirm
+    analytics_tool: null
+
+  pinterest:
+    platform: pinterest
+    handle_rules: "letters/numbers/_"
+    max_handle_len: 30
+    content_types_default: [post, vertical]
+    posting_methods:
+      - method_id: pin.publish.human
+        kind: pinterest_publish
+        gate: human_confirm
+    analytics_tool: null
+
+  x:
+    platform: x
+    handle_rules: "1-15 chars, letters/numbers/_ only (no periods)"
+    max_handle_len: 15
+    content_types_default: [post]
+    posting_methods:
+      - method_id: x.publish.human
+        kind: x_publish
+        gate: human_confirm
+    analytics_tool: null
+    notes: "X rejects domain-style handles with dots."

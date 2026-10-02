@@ -1,0 +1,53 @@
+ingest.local_or_r2:
+  method_id: ingest.local_or_r2
+  stage: ingest
+  description: Drop a master file under content/stores/<id>/<branch>/<type>/raw/ or upload to R2.
+  gate: none
+  inputs: [file_path_or_r2_uri]
+  outputs: [r2_raw_object]
+  executor: scripts/ingest.py
+
+organise.folder:
+  method_id: organise.folder
+  stage: organise
+  description: Move raw into typed folders and write metadata sidecar JSON.
+  gate: none
+  inputs: [raw_object]
+  outputs: [typed_object, metadata_sidecar]
+  executor: scripts/organise.py
+
+package.from_listing:
+  method_id: package.from_listing
+  stage: package
+  description: Draft title/description/tags from oddhobbies listing pack + brand style_lock.
+  gate: none
+  inputs: [store_id, sku_or_product_links, content_id]
+  outputs: [package_json]
+  executor: scripts/package.py
+
+publish.human_confirm:
+  method_id: publish.human_confirm
+  stage: publish
+  description: Queue publish for a branch; human confirms before platform upload.
+  gate: human_confirm
+  inputs: [content_id, branch_id, channel_payload]
+  outputs: [publish_task, later: platform_id]
+  executor: null
+
+measure.analytics_pull:
+  method_id: measure.analytics_pull
+  stage: measure
+  description: Pull platform metrics into content/stores/<id>/analytics/<branch>/.
+  gate: none
+  inputs: [branch_id, video_ids]
+  outputs: [analytics_json]
+  executor: scripts/measure.py
+
+optimise.join_later:
+  method_id: optimise.join_later
+  stage: optimise
+  description: Join analytics with product_links and commerce orders to rank content.
+  gate: none
+  inputs: [analytics_json, content_items, orders]
+  outputs: [optimisation_report]
+  executor: null
