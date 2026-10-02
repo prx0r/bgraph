@@ -95,22 +95,24 @@ def _stub_noul(decision_id: str, inputs: dict) -> tuple[bool, float]:
 
 
 def _live_noul(decision: dict, store_id: str, inputs: dict) -> dict:
-    """Call OpenRouter alpha/decisions with one Noul question."""
+    """Call OpenRouter alpha/decisions — sleepintel question shape."""
     state = {
         "store_id": store_id,
         "decision_id": decision["id"],
         "inputs": inputs,
         "fail_direction": decision.get("fail_direction"),
     }
-    questions = [
-        {
-            "id": decision["id"],
+    # questions as record: id -> {type, instructions, criteria}
+    questions = {
+        decision["id"]: {
             "type": "noul",
-            "statement": decision.get("question") or decision["id"],
-            "yes_cutoff": 0.7,
-            "no_cutoff": 0.3,
+            "instructions": decision.get("question") or decision["id"],
+            "criteria": {
+                "true": decision.get("action_if_true") or "yes / ready",
+                "false": decision.get("action_if_false") or "no / not ready",
+            },
         }
-    ]
+    }
     body = json.dumps({"model": MODEL, "state": state, "questions": questions}).encode()
     req = urllib.request.Request(
         ENDPOINT,
@@ -121,6 +123,7 @@ def _live_noul(decision: dict, store_id: str, inputs: dict) -> dict:
         },
     )
     delay = 1.0
+    out = None
     for attempt in range(3):
         try:
             with urllib.request.urlopen(req, timeout=60) as r:
@@ -135,32 +138,24 @@ def _live_noul(decision: dict, store_id: str, inputs: dict) -> dict:
     else:
         raise RuntimeError("jev unreachable after retries")
 
-    # Parse various response shapes
-    answer = None
-    conf = 0.7
-    raw = out
-    # nested questions
-    qs = out.get("questions") or out.get("results") or []
-    if isinstance(qs, list) and qs:
-        q0 = qs[0] if isinstance(qs[0], dict) else {}
-        if "answer" in q0:
-            answer = q0["answer"]
-        elif "value" in q0:
-            answer = q0["value"]
-        elif "result" in q0:
-            answer = q0["result"]
-        conf = float(q0.get("confidence") or q0.get("p") or conf)
-    elif isinstance(out, dict):
-        if "answer" in out:
-            answer = out["answer"]
-        conf = float(out.get("confidence") or conf)
-    if answer is None:
-        # fail-closed for money/publish if unparseable
+    # Parse sleepintel shape: out["answers"][qid]["noul"] + confidence
+    answers = out.get("answers") or {}
+    ans = answers.get(decision["id"]) or {}
+    if "noul" in ans:
+        answer = ans["noul"]
+    elif "answer" in ans:
+        answer = ans["answer"]
+    else:
         answer = False
-        conf = 0.2
+    conf = float(ans.get("confidence") or ans.get("p") or 0.7)
     if isinstance(answer, str):
         answer = answer.strip().lower() in ("true", "yes", "1", "y")
-    return {"answer": bool(answer), "confidence": conf, "raw_model": out.get("model", MODEL)}
+    return {
+        "answer": bool(answer),
+        "confidence": conf,
+        "raw_model": out.get("_pinned_model") or out.get("model", MODEL),
+        "usage": out.get("usage"),
+    }
 
 
 def decide(decision_id: str, store_id: str, inputs: dict[str, Any], model: str | None = None) -> dict:

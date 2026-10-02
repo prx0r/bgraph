@@ -50,8 +50,12 @@ def test_actuate_requires_dry_run() -> None:
 
 
 def test_jev_stub_noul() -> None:
+    import os
+    os.environ["JEV_LIVE"] = "0"  # stub path for unit test
     sys.path.insert(0, str(SCRIPTS))
     import jev
+    import importlib
+    importlib.reload(jev)
     rec = jev.decide(
         "brand_ready",
         "oddhobb",
@@ -65,6 +69,7 @@ def test_jev_stub_noul() -> None:
         {"brand_ready": True, "pack_count": 15},
     )
     assert rec2["band"] == "human"  # P0 fail-closed human
+    os.environ.pop("JEV_LIVE", None)
 
 
 def test_docs_and_registry_exist() -> None:
